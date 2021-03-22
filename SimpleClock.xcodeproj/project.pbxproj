@@ -13,6 +13,8 @@
 		26A3726225FEB230002D0823 /* ConfigurationSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A3726125FEB230002D0823 /* ConfigurationSheet.swift */; };
 		26A3726425FEB312002D0823 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A3726325FEB312002D0823 /* Settings.swift */; };
 		26A3726625FF4126002D0823 /* ConfigurationSheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26A3726525FF4126002D0823 /* ConfigurationSheet.xib */; };
+		A669D2642609603100104BF3 /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = A669D2622609603100104BF3 /* LICENSE.txt */; };
+		A669D2652609603100104BF3 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = A669D2632609603100104BF3 /* README.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,8 @@
 		26A3726125FEB230002D0823 /* ConfigurationSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationSheet.swift; sourceTree = "<group>"; };
 		26A3726325FEB312002D0823 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		26A3726525FF4126002D0823 /* ConfigurationSheet.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConfigurationSheet.xib; sourceTree = "<group>"; };
+		A669D2622609603100104BF3 /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
+		A669D2632609603100104BF3 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -40,6 +44,8 @@
 		2612B09C25FCA7B2002D0823 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				A669D2622609603100104BF3 /* LICENSE.txt */,
+				A669D2632609603100104BF3 /* README.txt */,
 				2612B09D25FCA7B2002D0823 /* thumbnail@2x.png */,
 				2612B09E25FCA7B2002D0823 /* thumbnail.png */,
 			);
@@ -144,9 +150,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A669D2642609603100104BF3 /* LICENSE.txt in Resources */,
 				2612B0A025FCA7B2002D0823 /* thumbnail.png in Resources */,
 				2612B09F25FCA7B2002D0823 /* thumbnail@2x.png in Resources */,
 				26A3726625FF4126002D0823 /* ConfigurationSheet.xib in Resources */,
+				A669D2652609603100104BF3 /* README.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
