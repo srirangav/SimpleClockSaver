@@ -4,7 +4,8 @@
     History:
 
     v. 1.0.0 (03/22/2021) - Initial version
-
+    v. 1.0.1 (04/22/2021) - Add support for star dates
+ 
     Based on: https://github.com/edwardloveall/ColorClockSaver/blob/master/ColorClockSaver/ConfigureSheet.swift
 
     Copyright (c) 2021 Sriranga R. Veeraraghavan <ranga@calalum.org>
@@ -45,13 +46,11 @@ class ConfigurationSheet
     
     @IBOutlet var window: NSWindow!
     
-    /*
-        the checkbox for specifying whether the date should be displayed in
-        long format
-     */
-    
-    @IBOutlet weak var longDateCheck: NSButton!
+    /* checkboxes for our settings */
 
+    @IBOutlet weak var longDateCheck: NSButton!
+    @IBOutlet weak var starDateCheck: NSButton!
+    
     /* initialization */
     
     init()
@@ -67,8 +66,9 @@ class ConfigurationSheet
             set the state of the long date checkbox based on the user's
             last saved settings
          */
-        
+
         longDateCheck.state = settings.longDateStateForCheckBox()
+        starDateCheck.state = settings.starDateStateForCheckBox()
     }
 
     /* done - close the sheet */
@@ -82,10 +82,10 @@ class ConfigurationSheet
         }
         parent.endSheet(window)
     }
-    
+
     /*
         setLongDate - change the user's preferences when the checkbox's
-                      state changes
+                      state changes for long date display
      */
     
     @IBAction func setLongDate(_ sender: NSButton)
@@ -100,4 +100,21 @@ class ConfigurationSheet
         }
     }
     
+    /*
+        setStarDate - change the user's preferences when the checkbox's
+                      state changes for stardate display
+     */
+    
+    @IBAction func setStarDate(_ sender: NSButton)
+    {
+        if (sender.state == NSControl.StateValue.on)
+        {
+            settings.isStarDate = true
+        }
+        else
+        {
+            settings.isStarDate = false
+        }
+    }
+
 }

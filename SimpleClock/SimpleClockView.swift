@@ -4,7 +4,8 @@
     History:
 
     v. 1.0.0 (03/22/2021) - Initial version
-
+    v. 1.0.1 (04/22/2021) - Add support for stardates
+ 
     Copyright (c) 2021 Sriranga R. Veeraraghavan <ranga@calalum.org>
 
     Permission is hereby granted, free of charge, to any person obtaining
@@ -35,19 +36,23 @@ class SimpleClockView: ScreenSaverView
     
     private let settings = Settings()
 
-    /* private text field for the date */
-    
-    private var dateLabel: NSTextField!
-
     /* private date formatter for formatting the date */
     
     private var dateFormatter = DateFormatter()
 
+    /* private text field for the date */
+    
+    private var dateLabel: NSTextField!
+
     /* private text field for the time */
     
     private var timeLabel: NSTextField!
-        
-    /* private stacked view to hold the date and time text fields */
+
+    /* private text field for the star date */
+    
+    private var starDateLabel: NSTextField!
+
+    /* private stacked view to hold the text fields */
     
     private let stackedView: NSStackView = {
         let view = NSStackView()
@@ -109,7 +114,7 @@ class SimpleClockView: ScreenSaverView
         }
         else
         {
-            dateFormatter.dateStyle = .long
+            dateFormatter.dateStyle = .medium
         }
         
         /* disable display of the time */
@@ -132,6 +137,15 @@ class SimpleClockView: ScreenSaverView
                               fontSize: displayFontSize / 2)
 
         /*
+            make the text field that will hold the stardate, at half
+            the font size of the time
+         */
+
+        starDateLabel = makeLabel(isPreview,
+                                  bounds: frame,
+                                  fontSize: displayFontSize / 2)
+
+        /*
             disable autoresizingmask in the stacked view so we can set
             constraints manually
          */
@@ -146,6 +160,7 @@ class SimpleClockView: ScreenSaverView
         
         stackedView.addArrangedSubview(timeLabel)
         stackedView.addArrangedSubview(dateLabel)
+        stackedView.addArrangedSubview(starDateLabel)
         
         /*
             center the date and time on the horizontal (x) access and
@@ -171,7 +186,6 @@ class SimpleClockView: ScreenSaverView
      
     override func draw(_ rect: NSRect)
     {
-
         /* fill the screen with our background color */
         
         backgroundColor.setFill()
@@ -192,6 +206,43 @@ class SimpleClockView: ScreenSaverView
         /* format the date using the date format specified by the user */
         
         dateLabel.stringValue = dateFormatter.string(from: now)
+
+        if (settings.isStarDate)
+        {
+            /*
+                print out the current start date in the new stardate
+                style YYYY.dd, where dd is the portion of a given
+                year since Jan 1 of that year
+                See: https://www.trekguide.com/Stardates.htm#Today
+             https://stackoverflow.com/questions/40075850/swift-3-find-number-of-calendar-days-between-two-dates
+                https://en.wikipedia.org/wiki/Year
+             */
+            
+            let year = calendar.component(.year, from: now);
+            var dateComponents = DateComponents();
+            let gregorianCal = Calendar.init(identifier: .gregorian)
+            
+            dateComponents.setValue(year, for: .year)
+            dateComponents.setValue(1, for: .month)
+            dateComponents.setValue(1, for: .day)
+            dateComponents.setValue(0, for: .hour)
+            dateComponents.setValue(0, for: .minute)
+            dateComponents.setValue(0, for: .second)
+
+            let startOfYear = gregorianCal.date(from: dateComponents)
+            
+            let numDays =
+                Float(now.timeIntervalSince(startOfYear!)/315576)
+
+            starDateLabel.stringValue =
+                String(format: "%04d.%2.0f",
+                       calendar.component(.year, from: now),
+                       numDays)
+        }
+        else
+        {
+            starDateLabel.stringValue = ""
+        }
         
         /* get the hour and minutes from the current calendar */
         

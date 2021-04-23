@@ -4,7 +4,8 @@
     History:
 
     v. 1.0.0 (03/22/2021) - Initial version
-
+    v. 1.0.1 (04/22/2021) - Add support for stardates
+ 
     Based on: https://github.com/edwardloveall/ColorClockSaver/blob/master/ColorClockSaver/Settings.swift
 
     Copyright (c) 2021 Sriranga R. Veeraraghavan <ranga@calalum.org>
@@ -30,13 +31,48 @@
 
 import ScreenSaver
 
+private let gStrIsLongDate    = "isLongDate"
+private let gStrIsStarDate    = "isStarDate"
+private let gStrErrNoBundleId = "Couldn't find a bundle identifier"
+private let gStrErrNDefaults  =
+    "Couldn't create ScreenSaverDefaults instance"
+
 class Settings
 {
-
     /* get the user's settings */
     
     let defaults = Settings.screenSaverDefaults()
+
+    /* register - register the initial values for our settings */
     
+    func register()
+    {
+        let values: [String: Any] = [
+            gStrIsLongDate : false,
+            gStrIsStarDate : false,
+        ]
+        defaults.register(defaults: values)
+    }
+
+    /* screenSaverDefaults - create our defaults */
+    
+    private static func screenSaverDefaults() -> ScreenSaverDefaults
+    {
+        guard let bundleId = Bundle(for: Settings.self).bundleIdentifier
+        else
+        {
+            fatalError(gStrErrNoBundleId)
+        }
+
+        guard let defaults = ScreenSaverDefaults(forModuleWithName: bundleId)
+        else
+        {
+            fatalError(gStrErrNDefaults)
+        }
+
+        return defaults
+    }
+
     /*
         methods to get and set the variable holding the user's preference
         for whether the date should be display in long format; when the
@@ -46,27 +82,15 @@ class Settings
     
     var isLongDate: Bool
     {
-
         get {
-          return defaults.bool(forKey: "isLongDate")
+            return defaults.bool(forKey: gStrIsLongDate)
         }
         
         set(value)
         {
-          defaults.set(value, forKey: "isLongDate")
-          defaults.synchronize()
+            defaults.set(value, forKey: gStrIsLongDate)
+            defaults.synchronize()
         }
-        
-    }
-    
-    /* register - register our settings */
-    
-    func register()
-    {
-      let values: [String: Any] = [
-        "isLongDate" : false,
-      ]
-      defaults.register(defaults: values)
     }
 
     /*
@@ -83,22 +107,37 @@ class Settings
         return NSControl.StateValue.off
     }
 
-    /* screenSaverDefaults - create our defaults */
+    /*
+        methods to get and set the variable holding the user's preference
+        for whether the stardate should be displayed; when the variable
+        is set, we synchronize the setting so that it is saved for future use
+     */
     
-    private static func screenSaverDefaults() -> ScreenSaverDefaults
+    var isStarDate: Bool
     {
-        guard let bundleId = Bundle(for: Settings.self).bundleIdentifier
-        else
-        {
-            fatalError("Couldn't find a bundle identifier")
+        get {
+            return defaults.bool(forKey: gStrIsStarDate)
         }
-
-        guard let defaults = ScreenSaverDefaults(forModuleWithName: bundleId)
-        else
+        
+        set(value)
         {
-            fatalError("Couldn't create ScreenSaverDefaults instance")
+            defaults.set(value, forKey: gStrIsStarDate)
+            defaults.synchronize()
         }
-
-        return defaults
     }
+
+    /*
+        starDateStateForCheckBox - return the state that the checkbox
+        holding the user's setting for the stardate display should have
+     */
+    
+    func starDateStateForCheckBox() -> NSControl.StateValue
+    {
+        if isStarDate
+        {
+            return NSControl.StateValue.on
+        }
+        return NSControl.StateValue.off
+    }
+
 }

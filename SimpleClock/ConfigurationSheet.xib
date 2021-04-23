@@ -9,6 +9,7 @@
         <customObject id="-2" userLabel="File's Owner" customClass="ConfigurationSheet" customModule="SimpleClock" customModuleProvider="target">
             <connections>
                 <outlet property="longDateCheck" destination="kYU-if-nzB" id="T0C-Dt-Aa5"/>
+                <outlet property="starDateCheck" destination="eFa-UO-6xu" id="ncd-6U-2Uq"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="jtW-Ls-OWf"/>
             </connections>
         </customObject>
@@ -16,14 +17,14 @@
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" hasShadow="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="QvC-M9-y7g">
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="196" y="240" width="229" height="95"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="775"/>
+            <rect key="contentRect" x="196" y="240" width="229" height="123"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="875"/>
             <view key="contentView" wantsLayer="YES" id="EiT-Mj-1SZ">
-                <rect key="frame" x="0.0" y="0.0" width="229" height="95"/>
+                <rect key="frame" x="0.0" y="0.0" width="229" height="123"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kYU-if-nzB">
-                        <rect key="frame" x="18" y="59" width="193" height="18"/>
+                        <rect key="frame" x="18" y="87" width="193" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="check" title="Display Date in Long Format" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="tbb-m1-Lg3">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -47,9 +48,20 @@ DQ
                             <action selector="done:" target="-2" id="7R2-0f-6Qn"/>
                         </connections>
                     </button>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eFa-UO-6xu">
+                        <rect key="frame" x="18" y="53" width="126" height="18"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="check" title="Display Stardate" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="14V-L4-KQ7">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="setStarDate:" target="-2" id="hB5-q0-76W"/>
+                        </connections>
+                    </button>
                 </subviews>
             </view>
-            <point key="canvasLocation" x="127.5" y="146.5"/>
+            <point key="canvasLocation" x="-48.5" y="24.5"/>
         </window>
     </objects>
 </document>
