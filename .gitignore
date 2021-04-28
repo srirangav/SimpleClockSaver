@@ -18,3 +18,4 @@ profile
 *.moved-aside
 DerivedData
 .idea/
+notarization_check.txt
