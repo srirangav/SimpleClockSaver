@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="18122" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="18122"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -10,6 +10,7 @@
             <connections>
                 <outlet property="longDateCheck" destination="kYU-if-nzB" id="T0C-Dt-Aa5"/>
                 <outlet property="starDateCheck" destination="eFa-UO-6xu" id="ncd-6U-2Uq"/>
+                <outlet property="timeZoneCheck" destination="ArP-28-eMd" id="1kg-xL-yav"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="jtW-Ls-OWf"/>
             </connections>
         </customObject>
@@ -17,16 +18,16 @@
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" hasShadow="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="QvC-M9-y7g">
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="196" y="240" width="229" height="123"/>
+            <rect key="contentRect" x="196" y="240" width="129" height="140"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="875"/>
             <view key="contentView" wantsLayer="YES" id="EiT-Mj-1SZ">
-                <rect key="frame" x="0.0" y="0.0" width="229" height="123"/>
+                <rect key="frame" x="0.0" y="0.0" width="129" height="140"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kYU-if-nzB">
-                        <rect key="frame" x="18" y="87" width="193" height="18"/>
+                        <rect key="frame" x="18" y="81" width="193" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="check" title="Display Date in Long Format" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="tbb-m1-Lg3">
+                        <buttonCell key="cell" type="check" title="Full Date" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="tbb-m1-Lg3">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
@@ -34,8 +35,30 @@
                             <action selector="setLongDate:" target="-2" id="hBp-my-Wtn"/>
                         </connections>
                     </button>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eFa-UO-6xu">
+                        <rect key="frame" x="18" y="59" width="78" height="18"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="check" title="Stardate" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="14V-L4-KQ7">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="setStarDate:" target="-2" id="hB5-q0-76W"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ArP-28-eMd">
+                        <rect key="frame" x="18" y="103" width="91" height="18"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="check" title="Time Zone" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="ocN-N8-CRs">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="setTimeZone:" target="-2" id="tcF-xo-4NI"/>
+                        </connections>
+                    </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JUj-mO-OTe">
-                        <rect key="frame" x="85" y="13" width="59" height="32"/>
+                        <rect key="frame" x="35" y="13" width="59" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Yg5-UI-2ko">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -48,20 +71,9 @@ DQ
                             <action selector="done:" target="-2" id="7R2-0f-6Qn"/>
                         </connections>
                     </button>
-                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eFa-UO-6xu">
-                        <rect key="frame" x="18" y="53" width="126" height="18"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="check" title="Display Stardate" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="14V-L4-KQ7">
-                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                            <font key="font" metaFont="system"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="setStarDate:" target="-2" id="hB5-q0-76W"/>
-                        </connections>
-                    </button>
                 </subviews>
             </view>
-            <point key="canvasLocation" x="-48.5" y="24.5"/>
+            <point key="canvasLocation" x="-98.5" y="33"/>
         </window>
     </objects>
 </document>

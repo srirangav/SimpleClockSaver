@@ -5,6 +5,7 @@
 
     v. 1.0.0 (03/22/2021) - Initial version
     v. 1.0.1 (04/22/2021) - Add support for stardates
+    v. 1.0.2 (04/02/2021) - Add support for timezones
  
     Copyright (c) 2021 Sriranga R. Veeraraghavan <ranga@calalum.org>
 
@@ -35,7 +36,7 @@ class SimpleClockView: ScreenSaverView
     /* private variable to hold our settings */
     
     private let settings = Settings()
-
+    
     /* private date formatter for formatting the date */
     
     private var dateFormatter = DateFormatter()
@@ -101,7 +102,7 @@ class SimpleClockView: ScreenSaverView
         /* set the animationTimeInterval equal to our refresh rate */
         
         self.animationTimeInterval = refreshRate
-        
+                
         /*
             if the user has specified a long date, then configure the
             date formatter accordingly
@@ -246,9 +247,27 @@ class SimpleClockView: ScreenSaverView
         
         /* get the hour and minutes from the current calendar */
         
-        timeLabel.stringValue = String(format: "%02d:%02d",
-                                       calendar.component(.hour, from: now),
-                                       calendar.component(.minute, from: now))
+        if (settings.isTimeZone)
+        {
+            timeLabel.stringValue =
+                String(format: "%02d:%02d ",
+                       calendar.component(.hour, from: now),
+                       calendar.component(.minute, from: now))
+            
+            /*
+                get the current timezone's abbreviation:
+                https://developer.apple.com/documentation/foundation/nstimezone/1387195-abbreviation
+             */
+            
+            timeLabel.stringValue += TimeZone.current.abbreviation() ?? ""
+        }
+        else
+        {
+            timeLabel.stringValue =
+                String(format: "%02d:%02d",
+                       calendar.component(.hour, from: now),
+                       calendar.component(.minute, from: now))
+        }
         
         /* ask for the display to be updated */
         

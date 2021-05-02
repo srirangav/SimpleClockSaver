@@ -5,7 +5,8 @@
 
     v. 1.0.0 (03/22/2021) - Initial version
     v. 1.0.1 (04/22/2021) - Add support for stardates
- 
+    v. 1.0.2 (04/02/2021) - Add support for timezones
+
     Based on: https://github.com/edwardloveall/ColorClockSaver/blob/master/ColorClockSaver/Settings.swift
 
     Copyright (c) 2021 Sriranga R. Veeraraghavan <ranga@calalum.org>
@@ -33,6 +34,7 @@ import ScreenSaver
 
 private let gStrIsLongDate    = "isLongDate"
 private let gStrIsStarDate    = "isStarDate"
+private let gStrIsTimeZone    = "isTimeZone"
 private let gStrErrNoBundleId = "Couldn't find a bundle identifier"
 private let gStrErrNDefaults  =
     "Couldn't create ScreenSaverDefaults instance"
@@ -50,6 +52,7 @@ class Settings
         let values: [String: Any] = [
             gStrIsLongDate : false,
             gStrIsStarDate : false,
+            gStrIsTimeZone : false,
         ]
         defaults.register(defaults: values)
     }
@@ -140,4 +143,38 @@ class Settings
         return NSControl.StateValue.off
     }
 
+    /*
+        methods to get and set the variable holding the user's preference
+        for whether the timezone should be displayed; when the variable
+        is set, we synchronize the setting so that it is saved for future use
+     */
+    
+    var isTimeZone: Bool
+    {
+        get {
+            return defaults.bool(forKey: gStrIsTimeZone)
+        }
+        
+        set(value)
+        {
+            defaults.set(value, forKey: gStrIsTimeZone)
+            defaults.synchronize()
+        }
+    }
+
+    /*
+        timeZoneStateForCheckBox - return the state that the checkbox
+        holding the user's setting for the timezone display should have
+     */
+    
+    func timeZoneStateForCheckBox() -> NSControl.StateValue
+    {
+        if isTimeZone
+        {
+            return NSControl.StateValue.on
+        }
+        return NSControl.StateValue.off
+    }
+
 }
+

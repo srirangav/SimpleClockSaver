@@ -4,8 +4,9 @@
     History:
 
     v. 1.0.0 (03/22/2021) - Initial version
-    v. 1.0.1 (04/22/2021) - Add support for star dates
- 
+    v. 1.0.1 (04/22/2021) - Add support for stardates
+    v. 1.0.2 (04/02/2021) - Add support for timezones
+
     Based on: https://github.com/edwardloveall/ColorClockSaver/blob/master/ColorClockSaver/ConfigureSheet.swift
 
     Copyright (c) 2021 Sriranga R. Veeraraghavan <ranga@calalum.org>
@@ -50,6 +51,7 @@ class ConfigurationSheet
 
     @IBOutlet weak var longDateCheck: NSButton!
     @IBOutlet weak var starDateCheck: NSButton!
+    @IBOutlet weak var timeZoneCheck: NSButton!
     
     /* initialization */
     
@@ -69,6 +71,7 @@ class ConfigurationSheet
 
         longDateCheck.state = settings.longDateStateForCheckBox()
         starDateCheck.state = settings.starDateStateForCheckBox()
+        timeZoneCheck.state = settings.timeZoneStateForCheckBox()
     }
 
     /* done - close the sheet */
@@ -114,6 +117,23 @@ class ConfigurationSheet
         else
         {
             settings.isStarDate = false
+        }
+    }
+
+    /*
+        setTimeZone - change the user's preferences when the checkbox's
+                      state changes for timezone display
+     */
+    
+    @IBAction func setTimeZone(_ sender: NSButton)
+    {
+        if (sender.state == NSControl.StateValue.on)
+        {
+            settings.isTimeZone = true
+        }
+        else
+        {
+            settings.isTimeZone = false
         }
     }
 
