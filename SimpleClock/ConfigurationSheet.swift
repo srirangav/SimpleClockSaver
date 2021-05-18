@@ -6,6 +6,7 @@
     v. 1.0.0 (03/22/2021) - Initial version
     v. 1.0.1 (04/22/2021) - Add support for stardates
     v. 1.0.2 (04/02/2021) - Add support for timezones
+    v. 1.0.3 (05/16/2021) - Add preference for display on main screen only
 
     Based on: https://github.com/edwardloveall/ColorClockSaver/blob/master/ColorClockSaver/ConfigureSheet.swift
 
@@ -52,6 +53,7 @@ class ConfigurationSheet
     @IBOutlet weak var longDateCheck: NSButton!
     @IBOutlet weak var starDateCheck: NSButton!
     @IBOutlet weak var timeZoneCheck: NSButton!
+    @IBOutlet weak var mainScreenCheck: NSButton!
     
     /* initialization */
     
@@ -72,6 +74,7 @@ class ConfigurationSheet
         longDateCheck.state = settings.longDateStateForCheckBox()
         starDateCheck.state = settings.starDateStateForCheckBox()
         timeZoneCheck.state = settings.timeZoneStateForCheckBox()
+        mainScreenCheck.state = settings.mainScreenStateForCheckBox()
     }
 
     /* done - close the sheet */
@@ -137,4 +140,21 @@ class ConfigurationSheet
         }
     }
 
+    /*
+        setAllScreens - change the user's preferences when the checkbox's
+                        state changes for all screens
+     */
+    
+    @IBAction func setMainScreen(_ sender: NSButton)
+    {
+        if (sender.state == NSControl.StateValue.on)
+        {
+            settings.isMainScreen = true
+        }
+        else
+        {
+            settings.isMainScreen = false
+        }
+    }
+    
 }

@@ -9,6 +9,7 @@
         <customObject id="-2" userLabel="File's Owner" customClass="ConfigurationSheet" customModule="SimpleClock" customModuleProvider="target">
             <connections>
                 <outlet property="longDateCheck" destination="kYU-if-nzB" id="T0C-Dt-Aa5"/>
+                <outlet property="mainScreenCheck" destination="txq-Lc-ava" id="XW7-Yg-Pw2"/>
                 <outlet property="starDateCheck" destination="eFa-UO-6xu" id="ncd-6U-2Uq"/>
                 <outlet property="timeZoneCheck" destination="ArP-28-eMd" id="1kg-xL-yav"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="jtW-Ls-OWf"/>
@@ -18,16 +19,16 @@
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" hasShadow="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="QvC-M9-y7g">
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="196" y="240" width="129" height="140"/>
+            <rect key="contentRect" x="196" y="240" width="165" height="162"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="875"/>
             <view key="contentView" wantsLayer="YES" id="EiT-Mj-1SZ">
-                <rect key="frame" x="0.0" y="0.0" width="129" height="140"/>
+                <rect key="frame" x="0.0" y="0.0" width="165" height="162"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kYU-if-nzB">
-                        <rect key="frame" x="18" y="81" width="193" height="18"/>
+                        <rect key="frame" x="18" y="103" width="193" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="check" title="Full Date" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="tbb-m1-Lg3">
+                        <buttonCell key="cell" type="check" title="Show Full Date" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="tbb-m1-Lg3">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
@@ -36,9 +37,9 @@
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eFa-UO-6xu">
-                        <rect key="frame" x="18" y="59" width="78" height="18"/>
+                        <rect key="frame" x="18" y="81" width="115" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="check" title="Stardate" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="14V-L4-KQ7">
+                        <buttonCell key="cell" type="check" title="Show Stardate" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="14V-L4-KQ7">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
@@ -47,9 +48,9 @@
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ArP-28-eMd">
-                        <rect key="frame" x="18" y="103" width="91" height="18"/>
+                        <rect key="frame" x="18" y="125" width="127" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="check" title="Time Zone" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="ocN-N8-CRs">
+                        <buttonCell key="cell" type="check" title="Show Time Zone" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="ocN-N8-CRs">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
@@ -57,8 +58,19 @@
                             <action selector="setTimeZone:" target="-2" id="tcF-xo-4NI"/>
                         </connections>
                     </button>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="txq-Lc-ava">
+                        <rect key="frame" x="18" y="59" width="133" height="18"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="check" title="Main Screen Only" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="5TM-Jc-iYi">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="setMainScreen:" target="-2" id="fRQ-ba-0sG"/>
+                        </connections>
+                    </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JUj-mO-OTe">
-                        <rect key="frame" x="35" y="13" width="59" height="32"/>
+                        <rect key="frame" x="53" y="13" width="59" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Yg5-UI-2ko">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -73,7 +85,7 @@ DQ
                     </button>
                 </subviews>
             </view>
-            <point key="canvasLocation" x="-98.5" y="33"/>
+            <point key="canvasLocation" x="-80.5" y="44"/>
         </window>
     </objects>
 </document>

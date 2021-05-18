@@ -6,6 +6,7 @@
     v. 1.0.0 (03/22/2021) - Initial version
     v. 1.0.1 (04/22/2021) - Add support for stardates
     v. 1.0.2 (04/02/2021) - Add support for timezones
+    v. 1.0.3 (05/16/2021) - Add prefernce for display on main screen only
  
     Copyright (c) 2021 Sriranga R. Veeraraghavan <ranga@calalum.org>
 
@@ -69,7 +70,14 @@ class SimpleClockView: ScreenSaverView
     /* private variable to hold the default refresh time = 5 secs */
     
     private var refreshRate: TimeInterval = 5.0
-        
+    
+    /*
+        private variable to determine the screen saver should run on a
+        partiuclar screen
+     */
+    
+    private var isThisScreenOn = true
+    
     /* make the background black */
     
     public var backgroundColor = NSColor.black
@@ -193,12 +201,42 @@ class SimpleClockView: ScreenSaverView
         rect.fill()
     }
 
+    /* start animation - start the screensaver animation */
+    
+    override func startAnimation()
+    {
+        let thisScreen =
+            self.window?.screen?.deviceDescription[NSDeviceDescriptionKey("NSScreenNumber")]
+        let mainScreen =
+            NSScreen.main?.deviceDescription[NSDeviceDescriptionKey("NSScreenNumber")]
+
+        if (settings.isMainScreen)
+        {
+            let thisScreenNum = thisScreen as? Int
+            let mainScreenNum = mainScreen as? Int
+            if (thisScreenNum != nil &&
+                mainScreenNum != nil &&
+                thisScreenNum != mainScreenNum)
+            {
+                isThisScreenOn = false
+            }
+        }
+
+        super.startAnimation()
+    }
+    
     /* animateOneFrame - draw one frame of the screensaver */
     
     override func animateOneFrame()
     {
         super.animateOneFrame()
-
+        
+        if (settings.isMainScreen && isThisScreenOn == false)
+        {
+            self.stopAnimation();
+            return;
+        }
+        
         /* get the current date and time */
         
         let now = Date()
