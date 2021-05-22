@@ -7,6 +7,7 @@
     v. 1.0.1 (04/22/2021) - Add support for stardates
     v. 1.0.2 (04/02/2021) - Add support for timezones
     v. 1.0.3 (05/16/2021) - Add preference for display on main screen only
+    v. 1.0.4 (05/20/2021) - Add support for TOS style stardates
 
     Based on: https://github.com/edwardloveall/ColorClockSaver/blob/master/ColorClockSaver/ConfigureSheet.swift
 
@@ -52,6 +53,7 @@ class ConfigurationSheet
 
     @IBOutlet weak var longDateCheck: NSButton!
     @IBOutlet weak var starDateCheck: NSButton!
+    @IBOutlet weak var TOSStarDateCheck: NSButton!
     @IBOutlet weak var timeZoneCheck: NSButton!
     @IBOutlet weak var mainScreenCheck: NSButton!
     
@@ -73,6 +75,7 @@ class ConfigurationSheet
 
         longDateCheck.state = settings.longDateStateForCheckBox()
         starDateCheck.state = settings.starDateStateForCheckBox()
+        TOSStarDateCheck.state = settings.starDateStateForCheckBox()
         timeZoneCheck.state = settings.timeZoneStateForCheckBox()
         mainScreenCheck.state = settings.mainScreenStateForCheckBox()
     }
@@ -116,10 +119,29 @@ class ConfigurationSheet
         if (sender.state == NSControl.StateValue.on)
         {
             settings.isStarDate = true
+            TOSStarDateCheck.isEnabled = true;
         }
         else
         {
             settings.isStarDate = false
+            TOSStarDateCheck.isEnabled = false;
+        }
+    }
+
+    /*
+        setTOSStarDate - change the user's preferences when the checkbox's
+                         state changes for TOS stardate display
+     */
+    
+    @IBAction func setTOSStarDate(_ sender: NSButton)
+    {
+        if (sender.state == NSControl.StateValue.on)
+        {
+            settings.isTOSStarDate = true
+        }
+        else
+        {
+            settings.isTOSStarDate = false
         }
     }
 

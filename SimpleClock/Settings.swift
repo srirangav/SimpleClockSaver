@@ -7,6 +7,7 @@
     v. 1.0.1 (04/22/2021) - Add support for stardates
     v. 1.0.2 (04/02/2021) - Add support for timezones
     v. 1.0.3 (05/15/2021) - Add preference for display on main screen only
+    v. 1.0.4 (05/20/2021) - Add support for TOS style stardates
 
     Based on: https://github.com/edwardloveall/ColorClockSaver/blob/master/ColorClockSaver/Settings.swift
 
@@ -35,6 +36,7 @@ import ScreenSaver
 
 private let gStrIsLongDate    = "isLongDate"
 private let gStrIsStarDate    = "isStarDate"
+private let gStrIsTOSStarDate = "isTOSStarDate"
 private let gStrIsTimeZone    = "isTimeZone"
 private let gStrIsMainScreen  = "isMainScreen"
 private let gStrErrNoBundleId = "Couldn't find a bundle identifier"
@@ -55,6 +57,7 @@ class Settings
             gStrIsLongDate : false,
             gStrIsStarDate : false,
             gStrIsTimeZone : false,
+            gStrIsTOSStarDate : false,
             gStrIsMainScreen : false,
         ]
         defaults.register(defaults: values)
@@ -146,6 +149,40 @@ class Settings
         return NSControl.StateValue.off
     }
 
+    /*
+        methods to get and set the variable holding the user's preference
+        for whether the stardate should be displayed in TOS style; when
+        the variable is set, we synchronize the setting so that it is saved
+        for future use
+     */
+    
+    var isTOSStarDate: Bool
+    {
+        get {
+            return defaults.bool(forKey: gStrIsTOSStarDate)
+        }
+        
+        set(value)
+        {
+            defaults.set(value, forKey: gStrIsTOSStarDate)
+            defaults.synchronize()
+        }
+    }
+
+    /*
+        starDateStateForCheckBox - return the state that the checkbox
+        holding the user's setting for the stardate display should have
+     */
+    
+    func TOSStarDateStateForCheckBox() -> NSControl.StateValue
+    {
+        if isTOSStarDate
+        {
+            return NSControl.StateValue.on
+        }
+        return NSControl.StateValue.off
+    }
+    
     /*
         methods to get and set the variable holding the user's preference
         for whether the timezone should be displayed; when the variable

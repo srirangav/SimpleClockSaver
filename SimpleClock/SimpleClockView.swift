@@ -7,7 +7,8 @@
     v. 1.0.1 (04/22/2021) - Add support for stardates
     v. 1.0.2 (04/02/2021) - Add support for timezones
     v. 1.0.3 (05/16/2021) - Add prefernce for display on main screen only
- 
+    v. 1.0.4 (05/20/2021) - Add support for TOS style stardates
+
     Copyright (c) 2021 Sriranga R. Veeraraghavan <ranga@calalum.org>
 
     Permission is hereby granted, free of charge, to any person obtaining
@@ -248,35 +249,58 @@ class SimpleClockView: ScreenSaverView
 
         if (settings.isStarDate)
         {
-            /*
-                print out the current start date in the new stardate
-                style YYYY.dd, where dd is the portion of a given
-                year since Jan 1 of that year
-                See: https://www.trekguide.com/Stardates.htm#Today
-             https://stackoverflow.com/questions/40075850/swift-3-find-number-of-calendar-days-between-two-dates
-                https://en.wikipedia.org/wiki/Year
-             */
-            
             let year = calendar.component(.year, from: now);
-            var dateComponents = DateComponents();
-            let gregorianCal = Calendar.init(identifier: .gregorian)
-            
-            dateComponents.setValue(year, for: .year)
-            dateComponents.setValue(1, for: .month)
-            dateComponents.setValue(1, for: .day)
-            dateComponents.setValue(0, for: .hour)
-            dateComponents.setValue(0, for: .minute)
-            dateComponents.setValue(0, for: .second)
 
-            let startOfYear = gregorianCal.date(from: dateComponents)
-            
-            let numDays =
-                Float(now.timeIntervalSince(startOfYear!)/315576)
+            if (settings.isTOSStarDate == true)
+            {
+                /*
+                    print out the current start date in the TOS stardate
+                    style YYMM.DD, where YY is the current year - 1900
+                    See: https://www.trekguide.com/Stardates.htm#Today
+                */
+                
+                var TOSStarDateYear = year - 1900
+                if (TOSStarDateYear < 0)
+                {
+                    TOSStarDateYear = 0
+                }
+             
+                starDateLabel.stringValue =
+                    String(format: "%0d%02d.%02d",
+                           TOSStarDateYear,
+                           calendar.component(.month, from: now),
+                           calendar.component(.day, from: now))
+            }
+            else
+            {
+                /*
+                    print out the current start date in the new stardate
+                    style YYYY.dd, where dd is the portion of a given
+                    year since Jan 1 of that year
+                    See: https://www.trekguide.com/Stardates.htm#Today
+                 https://stackoverflow.com/questions/40075850/swift-3-find-number-of-calendar-days-between-two-dates
+                    https://en.wikipedia.org/wiki/Year
+                 */
+                
+                var dateComponents = DateComponents();
 
-            starDateLabel.stringValue =
-                String(format: "%04d.%2.0f",
-                       calendar.component(.year, from: now),
-                       numDays)
+                dateComponents.setValue(year, for: .year)
+                dateComponents.setValue(1, for: .month)
+                dateComponents.setValue(1, for: .day)
+                dateComponents.setValue(0, for: .hour)
+                dateComponents.setValue(0, for: .minute)
+                dateComponents.setValue(0, for: .second)
+
+                let gregorianCal = Calendar.init(identifier: .gregorian)
+                let startOfYear = gregorianCal.date(from: dateComponents)
+                let numDays =
+                    Float(now.timeIntervalSince(startOfYear!)/315576)
+
+                starDateLabel.stringValue =
+                    String(format: "%04d.%2.0f",
+                           calendar.component(.year, from: now),
+                           numDays)
+            }
         }
         else
         {
