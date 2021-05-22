@@ -1,7 +1,7 @@
 README
 ------
 
-SimpleClock.saver v1.0.3
+SimpleClock.saver v1.0.4
 By Sriranga Veeraraghavan <ranga@calalum.org>
 
 SimpleClock.saver is a simple Swift-based digital clock screensaver
@@ -27,6 +27,7 @@ History:
     v. 1.0.2 (05/02/2021) - Add support for timezones
     v. 1.0.3 (05/17/2021) - Add preference for display on main screen 
                             only
+    v. 1.0.4 (05/21/2021) - Add support for TOS style stardates
 
 Known Issues:
 
